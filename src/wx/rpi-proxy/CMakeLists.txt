@@ -1,6 +1,11 @@
 # RPI Proxy - Cross-architecture filter plugin support
 # This allows 64-bit VBA-M builds to load 32-bit RPI filter plugins
 
+# Disabled for OGV: this module has upstream Unicode/ANSI Windows API
+# mismatches that fail with -Werror on current MinGW/wxWidgets, and OGV
+# doesn't use 32-bit cross-architecture plugin loading.
+return()
+
 if(NOT WIN32)
     return()
 endif()
