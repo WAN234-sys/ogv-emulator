@@ -40,11 +40,11 @@ jobs:
       - name: Install project dependencies
         run: ./installdeps
 
-      - name: Configure and build
+      - name: Configure and build (static, vcpkg)
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -G Ninja
+          cmake .. -DVCPKG_TARGET_TRIPLET=x64-mingw-static -DCMAKE_BUILD_TYPE=Release -G Ninja
           ninja
 
       - name: Locate built exe
