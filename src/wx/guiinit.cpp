@@ -6,6 +6,7 @@
 // viewer dialogs are not commonly used, so they are initialized on demand
 
 #include "wx/wxvbam.h"
+#include "wx/cheatdatabase.h"
 
 #ifdef __WXGTK__
 #include <gtk/gtk.h>
@@ -2362,7 +2363,7 @@ wxDialog* MainFrame::LoadDialog(const wxString& name)
                 NULL, &cheat_list_handler);
             d->Fit();
 
-            // CheatEdit is used by CheatList, so load it now
+           // CheatEdit is used by CheatList, so load it now
             LoadDialog("CheatEdit");
         }
         else if (name == "CheatEdit") {
@@ -2373,6 +2374,32 @@ wxDialog* MainFrame::LoadDialog(const wxString& name)
             tc->SetMaxLength(sizeof(cheatsList[0].desc) - 1);
             gettc("Codes", cheat_list_handler.ce_codes);
             cheat_list_handler.ce_codes_tc = tc;
+            d->Fit();
+        }
+        else if (name == "CheatDatabase") {
+            d = LoadXRCDialog("CheatDatabase");
+            cheat_database_handler.dlg = d;
+            d->SetEscapeId(wxID_CLOSE);
+
+            wxListCtrl* lc = SafeXRCCTRL<wxListCtrl>(d, "CheatDBList");
+            lc->InsertColumn(0, _("Game"));
+            lc->InsertColumn(1, _("Cheat"));
+            lc->InsertColumn(2, _("Type"));
+            lc->SetColumnWidth(0, 150);
+            lc->SetColumnWidth(1, 220);
+            lc->SetColumnWidth(2, 60);
+            cheat_database_handler.list = lc;
+
+            cheat_database_handler.search = SafeXRCCTRL<wxTextCtrl>(d, "CheatDBSearch");
+            cheat_database_handler.status = SafeXRCCTRL<wxStaticText>(d, "CheatDBStatus");
+
+            d->Bind(wxEVT_TEXT, &CheatDatabase_t::OnSearchChanged, &cheat_database_handler,
+                XRCID("CheatDBSearch"));
+            d->Bind(wxEVT_BUTTON, &CheatDatabase_t::OnAdd, &cheat_database_handler,
+                XRCID("CheatDBAdd"));
+            d->Bind(wxEVT_BUTTON, &CheatDatabase_t::OnClose, &cheat_database_handler,
+                wxID_CLOSE);
+
             d->Fit();
         }
         else if (name == "CheatCreate") {

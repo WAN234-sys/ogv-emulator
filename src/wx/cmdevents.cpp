@@ -24,6 +24,7 @@
 #include "core/gb/gbPrinter.h"
 #include "core/gb/gbSound.h"
 #include "core/gba/gbaCheats.h"
+#include "wx/cheatdatabase.h"
 #include "core/gba/gbaEeprom.h"
 #include "core/gba/gbaGlobals.h"
 #include "core/gba/gbaPrint.h"
@@ -1620,7 +1621,9 @@ EVT_HANDLER_MASK(CheatsList, "List cheats...", CMDEN_GB | CMDEN_GBA)
 
 EVT_HANDLER_MASK(CheatsSearch, "Create cheat...", CMDEN_GB | CMDEN_GBA)
 {
-    wxDialog* dlg = GetXRCDialog("CheatCreate");
+    wxDialog* dlg = GetXRCDialog("CheatDatabase");
+    cheat_database_handler.LoadDatabase();
+    cheat_database_handler.Refresh();
     ShowModal(dlg);
 }
 

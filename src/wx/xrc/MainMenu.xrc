@@ -578,8 +578,8 @@
         <object class="wxMenuItem" name="CheatsList">
           <label>List _cheats...</label>
         </object>
-        <object class="wxMenuItem" name="CheatsSearch">
-          <label>Find c_heat...</label>
+        <object class="wxMenuItem" name="CheatsDatabase">
+          <label>Find _Database...</label>
         </object>
         <object class="separator"/>
         <object class="wxMenuItem" name="CheatsAutoSaveLoad">

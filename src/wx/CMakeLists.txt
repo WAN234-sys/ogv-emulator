@@ -16,6 +16,8 @@ set(VBAM_WX_COMMON
     background-input.cpp
     background-input.h
     cmdevents.cpp
+    cheatdatabase.cpp
+    cheatdatabase.h
     dialogs/accel-config.cpp
     dialogs/accel-config.h
     dialogs/base-dialog.cpp
@@ -1034,6 +1036,7 @@ set(
     xrc/CheatCreate.xrc
     xrc/CheatEdit.xrc
     xrc/CheatList.xrc
+    xrc/CheatDatabase.xrc
     xrc/CodeSelect.xrc
     xrc/DirectoriesConfig.xrc
     xrc/Disassemble.xrc
