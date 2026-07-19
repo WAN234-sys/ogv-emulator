@@ -1,0 +1,11 @@
+# OGV Cheat Database
+# Format: GAMECODE|Game Title|Cheat Name|TYPE|CODE
+# TYPE is one of: GS (GameShark/GSA), GG (Game Genie), CB (CodeBreaker)
+# Lines starting with # are ignored. GAMECODE is the 4-char GBA header code
+# (e.g. from ROM Information dialog), or the GB/GBC cart title for those games.
+#
+# This is just a starter file demonstrating the format - replace the example
+# rows below with real, verified codes for the games you actually want to
+# support.
+EXAMPLE|Example Game (GBA)|Infinite Health|GS|00000000 00000000
+EXAMPLE|Example Game (GBA)|Max Money|CB|00000000 00000000

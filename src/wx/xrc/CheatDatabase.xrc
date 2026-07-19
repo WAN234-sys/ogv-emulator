@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
+  <object class="wxDialog" name="CheatDatabase">
+    <title>Cheat Database</title>
+    <size>500,400</size>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+
+      <object class="sizeritem">
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <flag>wxALIGN_CENTER_VERTICAL|wxRIGHT</flag>
+            <border>5</border>
+            <object class="wxStaticText" name="wxID_STATIC">
+              <label>Search:</label>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+            <object class="wxTextCtrl" name="CheatDBSearch"/>
+          </object>
+        </object>
+      </object>
+
+      <object class="sizeritem">
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+        <object class="wxListCtrl" name="CheatDBList">
+          <style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
+        </object>
+      </object>
+
+      <object class="sizeritem">
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <flag>wxRIGHT</flag>
+            <border>5</border>
+            <object class="wxStaticText" name="CheatDBStatus">
+              <label>No game loaded.</label>
+            </object>
+          </object>
+          <object class="spacer">
+            <option>1</option>
+          </object>
+          <object class="sizeritem">
+            <flag>wxRIGHT</flag>
+            <border>5</border>
+            <object class="wxButton" name="CheatDBAdd">
+              <label>Add Selected</label>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CLOSE">
+              <label>Close</label>
+            </object>
+          </object>
+        </object>
+      </object>
+
+    </object>
+  </object>
+</resource>

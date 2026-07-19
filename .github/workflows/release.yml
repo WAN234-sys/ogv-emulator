@@ -1,0 +1,61 @@
+name: Build and Release Windows exe
+
+on:
+  push:
+    tags:
+      - 'v*'          # triggers when you push a tag like v1.0.0
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - name: Checkout repo (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up MSYS2 + MinGW toolchain
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            git
+            base-devel
+
+      - name: Install project dependencies
+        run: ./installdeps
+
+      - name: Configure and build
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release -G Ninja
+          ninja
+
+      - name: Locate built exe
+        id: locate
+        run: |
+          EXE_PATH=$(find build -maxdepth 2 -iname "visualboyadvance-m.exe" | head -n1)
+          echo "exe_path=$EXE_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Rename exe to ogv.exe
+        id: rename
+        run: |
+          SRC="${{ steps.locate.outputs.exe_path }}"
+          DEST="$(dirname "$SRC")/ogv.exe"
+          cp "$SRC" "$DEST"
+          echo "exe_path=$DEST" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release with exe attached
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.rename.outputs.exe_path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
