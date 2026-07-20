@@ -648,7 +648,7 @@ bool wxvbamApp::OnInit() {
     // use consistent names for config, DO NOT TRANSLATE
     SetAppName("visualboyadvance-m");
 #if (wxMAJOR_VERSION >= 3)
-    SetAppDisplayName("VisualBoyAdvance-M");
+    SetAppDisplayName("Old Game Virtual");
 #endif
 
     wxvbam_locale = new wxLocale;
@@ -1209,7 +1209,7 @@ bool wxvbamApp::OnCmdLineError(wxCmdLineParser& parser)
 void wxvbamApp::OnInitCmdLine(wxCmdLineParser& cl)
 {
     wxApp::OnInitCmdLine(cl);
-    cl.SetLogo(wxT("VisualBoyAdvance-M\n"));
+    cl.SetLogo(wxT("Old Game Virtual\n"));
 // 2.9 decided to change all of these from wxChar to char for some
 // reason
 #if wxCHECK_VERSION(2, 9, 0)

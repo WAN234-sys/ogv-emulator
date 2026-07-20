@@ -1621,6 +1621,12 @@ EVT_HANDLER_MASK(CheatsList, "List cheats...", CMDEN_GB | CMDEN_GBA)
 
 EVT_HANDLER_MASK(CheatsSearch, "Create cheat...", CMDEN_GB | CMDEN_GBA)
 {
+    wxDialog* dlg = GetXRCDialog("CheatCreate");
+    ShowModal(dlg);
+}
+
+EVT_HANDLER_MASK(CheatsDatabase, "Cheat Database...", CMDEN_GB | CMDEN_GBA)
+{
     wxDialog* dlg = GetXRCDialog("CheatDatabase");
     cheat_database_handler.LoadDatabase();
     cheat_database_handler.Refresh();
@@ -2547,7 +2553,7 @@ EVT_HANDLER(Translate, "Translations")
 EVT_HANDLER(wxID_ABOUT, "About...")
 {
     wxAboutDialogInfo ai;
-    ai.SetName(wxT("VisualBoyAdvance-M"));
+    ai.SetName(wxT("Old Game Virtual"));
     wxString version(kVbamVersion);
     ai.SetVersion(version);
     // setting website, icon, license uses custom aboutbox on win32 & macosx

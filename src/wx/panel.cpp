@@ -1159,7 +1159,7 @@ void GameArea::SetFrameTitle()
         tit.append(wxT(" - "));
     }
 
-    tit.append(wxT("VisualBoyAdvance-M "));
+    tit.append(wxT("Old Game Virtual "));
     tit.append(kVbamVersion);
 
 #ifndef NO_LINK
