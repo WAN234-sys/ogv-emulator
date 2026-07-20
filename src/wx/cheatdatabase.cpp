@@ -75,7 +75,9 @@ void CheatDatabase_t::Refresh()
     visible_entries.clear();
 
     wxString game_code = CurrentGameCode();
-    wxString filter = search ? search->GetValue().Lower() : wxEmptyString;
+    wxString filter;
+    if (search)
+        filter = search->GetValue().Lower();
 
     if (game_code.IsEmpty()) {
         if (status)
