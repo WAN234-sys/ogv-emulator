@@ -66,9 +66,27 @@ jobs:
           echo "Non-system DLL dependencies of ogv.exe (should be empty for a true static build):"
           ldd "${{ steps.rename.outputs.exe_path }}" | grep -iv "system32\|WINDOWS" || echo "(none found - fully static)"
 
+      - name: Bundle required MinGW runtime DLLs (fallback for non-static libgcc/pthread)
+        id: bundle
+        run: |
+          DEST_DIR="$(dirname "${{ steps.rename.outputs.exe_path }}")"
+          for dll in libgcc_s_seh-1.dll libwinpthread-1.dll libstdc++-6.dll; do
+            if [ -f "/mingw64/bin/$dll" ]; then
+              cp "/mingw64/bin/$dll" "$DEST_DIR/"
+              echo "Bundled $dll"
+            fi
+          done
+          echo "gcc_dll=$DEST_DIR/libgcc_s_seh-1.dll" >> "$GITHUB_OUTPUT"
+          echo "pthread_dll=$DEST_DIR/libwinpthread-1.dll" >> "$GITHUB_OUTPUT"
+          echo "stdcpp_dll=$DEST_DIR/libstdc++-6.dll" >> "$GITHUB_OUTPUT"
+
       - name: Create GitHub Release with exe attached
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ steps.rename.outputs.exe_path }}
+          files: |
+            ${{ steps.rename.outputs.exe_path }}
+            ${{ steps.bundle.outputs.gcc_dll }}
+            ${{ steps.bundle.outputs.pthread_dll }}
+            ${{ steps.bundle.outputs.stdcpp_dll }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
