@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake .. -DVCPKG_TARGET_TRIPLET=x64-mingw-static -DCMAKE_BUILD_TYPE=Release -G Ninja
+          cmake .. -DVCPKG_TARGET_TRIPLET=x64-mingw-static -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_EXE_LINKER_FLAGS="-static-libgcc -static-libstdc++ -static"
           ninja
 
       - name: Locate built exe
@@ -60,6 +60,11 @@ jobs:
           DEST="$(dirname "$SRC")/ogv.exe"
           cp "$SRC" "$DEST"
           echo "exe_path=$DEST" >> "$GITHUB_OUTPUT"
+
+      - name: Check for remaining DLL dependencies
+        run: |
+          echo "Non-system DLL dependencies of ogv.exe (should be empty for a true static build):"
+          ldd "${{ steps.rename.outputs.exe_path }}" | grep -iv "system32\|WINDOWS" || echo "(none found - fully static)"
 
       - name: Create GitHub Release with exe attached
         uses: softprops/action-gh-release@v2
