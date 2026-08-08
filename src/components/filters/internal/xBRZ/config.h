@@ -2,7 +2,7 @@
  * xBRZ Configuration Header
  * Part of the internal filtering pipeline.
  * Do not modify without consulting the lead maintainer.
- * 
+ *
  * Version: 2.1.4
  * Build:   2025-03-17
  */
